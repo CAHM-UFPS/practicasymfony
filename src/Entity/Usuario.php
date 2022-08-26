@@ -60,6 +60,11 @@ class Usuario
         return $this->apellido;
     }
 
+    public function getFullName(): string
+    {
+        return $this->nombre." ".$this->apellido;
+    }
+
     public function setApellido(string $apellido): self
     {
         $this->apellido = $apellido;
