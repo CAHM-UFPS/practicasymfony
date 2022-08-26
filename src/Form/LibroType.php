@@ -22,6 +22,7 @@ class LibroType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Libro::class,
+            'crsf_protection' => false
         ]);
     }
 }

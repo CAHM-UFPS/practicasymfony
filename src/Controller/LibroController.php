@@ -25,7 +25,7 @@ class LibroController extends AbstractController
             return $this->json($book);
         }
 
-        return $this->json([], 400);
+        return $this->json($form->getErrors(true), 400);
     }
 
     #[Route('/list', name: 'list_books', methods: ['GET'])]
@@ -57,10 +57,10 @@ class LibroController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {
             $bookRepository->add($book, true);
-            return $this->json($book);
+            return $this->json($book, 201);
         }
 
-        return $this->json([], 400);
+        return $this->json($form->getErrors(true), 400);
     }
 
     #[Route('/{id}', name: 'delete_book', methods: ['DELETE'])]

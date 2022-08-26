@@ -25,7 +25,7 @@ class UsuarioController extends AbstractController
             return $this->json($user); //Retornamos el usuario creado como json
         }
 
-        return $this->json([], 400);
+        return $this->json($form->getErrors(true), 400); //Enviamos los errores obtenidos por el form
     }
 
     #[Route('/list', name: 'list_users', methods: ['GET'])]
@@ -57,10 +57,10 @@ class UsuarioController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $usuarioRepository->add($user, true);
-            return $this->json($user);
+            return $this->json($user, 201);
         }
 
-        return $this->json([], 400);
+        return $this->json($form->getErrors(true), 400);
     }
 
     #[Route('/{id}', name: 'delete_user', methods: ['DELETE'])]
