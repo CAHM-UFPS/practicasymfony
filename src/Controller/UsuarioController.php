@@ -34,7 +34,7 @@ class UsuarioController extends AbstractController
         return $this->json($usuarioRepository->findAll());
     }
 
-    #[Route('/{id}', name: 'listUserById', methods: ['GET'])]
+    #[Route('/list/{id}', name: 'listUserById', methods: ['GET'])]
     public function readById(Usuario $user = null): JsonResponse
     {
         if(!$user)

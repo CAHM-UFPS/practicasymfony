@@ -2,7 +2,9 @@
 
 namespace App\Document;
 
+use App\Entity\Libro;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ODM\Document]
 class Prestamo
@@ -11,15 +13,21 @@ class Prestamo
     private $id;
 
     #[ODM\Field(type: 'int')]
+    #[Assert\Positive]
     private int $userId;
 
     #[ODM\Field(type: 'int')]
+    #[Assert\Positive]
     private int $bookId;
 
-    #[ODM\Field(type: 'date')]
+    #[ODM\Field(type: 'string')]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
     private string $loanDate;
 
-    #[ODM\Field(type: 'date')]
+    #[ODM\Field(type: 'string')]
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
     private string $returnDate;
 
     /**
