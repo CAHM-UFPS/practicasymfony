@@ -28,7 +28,24 @@ class UsuarioController extends AbstractController
         return $this->json([], 400);
     }
 
-    #[Route('/{id}', name: 'edit_user', methods: ['PUT'])]
+    #[Route('/list', name: 'list_users', methods: ['GET'])]
+    public function read(UsuarioRepository $usuarioRepository): JsonResponse
+    {
+        return $this->json($usuarioRepository->findAll());
+    }
+
+    #[Route('/{id}', name: 'listUserById', methods: ['GET'])]
+    public function readById(Usuario $user = null): JsonResponse
+    {
+        if(!$user)
+        {
+            return $this->json(['message' => 'user not found'], 404);
+        }
+
+        return $this->json($user);
+    }
+
+    #[Route('/edit/{id}', name: 'edit_user', methods: ['PUT'])]
     public function update(Usuario $user = null, Request $request, UsuarioRepository $usuarioRepository): JsonResponse
     {
         if (!$user) {
@@ -44,5 +61,18 @@ class UsuarioController extends AbstractController
         }
 
         return $this->json([], 400);
+    }
+
+    #[Route('/{id}', name: 'delete_user', methods: ['DELETE'])]
+    public function delete(Usuario $user = null, UsuarioRepository $usuarioRepository): JsonResponse
+    {
+        if(!$user)
+        {
+            return $this->json(['message'=>'user not found'], 404);
+        }
+
+        $usuarioRepository->remove($user, true);
+
+        return $this->json(['message'=>'successfully deleted user']);
     }
 }
