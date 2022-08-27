@@ -58,9 +58,8 @@ class PrestamoController extends AbstractController
         }
 
         return $this->json([
-
             'fullname'=> $user->getFullName(),
-            'detail'=> $loanManager->getRepository(Prestamo::class)->findOneBy(['userId'=>$user->getId()])
+            'orders'=> $loanManager->getRepository(Prestamo::class)->findBy(['userId'=>$user->getId()])
         ]);
     }
 
