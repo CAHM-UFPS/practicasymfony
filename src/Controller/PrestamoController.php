@@ -24,7 +24,7 @@ class PrestamoController extends AbstractController
 
         if(!$user || !$book)
         {
-            return $this->json(['message'=>'user and book not exist'], 404);
+            return $this->json(['message'=>'user or book not exist'], 404);
         }
 
         $loan->setUserId($user->getId());
@@ -57,7 +57,11 @@ class PrestamoController extends AbstractController
             return $this->json(['message'=>'user has not loan books'], 404);
         }
 
-        return $this->json($loanManager->getRepository(Prestamo::class)->findOneBy(['userId'=>$user->getId()]));
+        return $this->json([
+
+            'fullname'=> $user->getFullName(),
+            'detail'=> $loanManager->getRepository(Prestamo::class)->findOneBy(['userId'=>$user->getId()])
+        ]);
     }
 
     public function update()
